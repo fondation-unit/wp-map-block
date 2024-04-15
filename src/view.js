@@ -31,8 +31,10 @@ const map = L.map('map-div', {
 
 
 const mapStyle = {
-  'color': '#8ea18c',
-  'fillOpacity': '1',
+  fillColor: '#8ea18c',
+  fillOpacity: 1,
+  color: '#ccdbc8',
+  weight: 1
 }
 
 L.geoJSON(france, { style: mapStyle }).addTo(map);
@@ -66,7 +68,6 @@ function setGeojsonData(name, popupContent, coords) {
     }
   };
 }
-
 
 const geojsonData = window.mapViewData.geojsonData;
 if (geojsonData) {

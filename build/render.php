@@ -40,16 +40,29 @@ if ( !empty($spreadsheetId) && !empty($sheetName) ) :
 		}
 	}
 
-	$geojson_data = $coords_array;
-
 	$data_to_pass = array(
 		'iconUrl' => plugin_dir_url(__FILE__) . '../src/images/map/marker.png',
-		'geojsonData' => $geojson_data,
+		'geojsonData' => $coords_array,
 	);
 
 	// Output the data into the view.js file
 	echo "<script>window.mapViewData = " . json_encode($data_to_pass) . ";</script>";
-
 endif; ?>
 
-<div id="map-div" class="create-block-map"></div>
+<div class="create-block-map-wrapper">
+	<div id="map-div" class="create-block-map"></div>
+
+	<div class="create-block-map-entries">
+		<?php
+		// Output the text data
+		$type = null;
+
+		foreach($coords_array as $entry) :
+			if ($entry['type'] != $type) {
+				$type = $entry['type'];
+				echo '<h4 class="entry-title">' . $type . '</h4>';
+			}
+			echo '<li class="entry-name">' . $entry['name'] . '</li>';
+		endforeach; ?>
+	</div>
+</div>
