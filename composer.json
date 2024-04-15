@@ -1,0 +1,21 @@
+{
+    "name": "fondation-unit/map",
+    "description": "WordPress Map block",
+    "type": "plugin",
+    "require": {
+        "google/apiclient": "2.15",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "license": "GPL-3.0",
+    "autoload": {
+        "psr-4": {
+            "FondationUnit\\Programmevinum\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hipjea",
+            "email": "pierre.duverneix@gmail.com"
+        }
+    ]
+}
