@@ -8,6 +8,14 @@
 	"icon": "smiley",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
+	"attributes": {
+		"spreadsheetId": {
+			"type": "string"
+		},
+		"sheetName": {
+			"type": "string"
+		}
+	},
 	"supports": {
 		"html": false
 	},

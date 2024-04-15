@@ -68,29 +68,16 @@ function setGeojsonData(name, popupContent, coords) {
 }
 
 
-function fetchAndSetMap(uri, map) {
-  fetch(uri, {
-    method: "GET",
-    headers: new Headers(),
-    mode: "cors",
-    cache: "default",
+const geojsonData = window.mapViewData.geojsonData;
+if (geojsonData) {
+  geojsonData.map(data => {
+    const geoData = setGeojsonData(data.name, data.name, data.coords);
+
+    L.geoJSON(geoData, {
+      pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, { icon: customIcon });
+      },
+      onEachFeature: onEachFeature
+    }).addTo(map);
   })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (json) {
-      json.map(data => {
-        const geojsonData = setGeojsonData(data.name, data.name, data.coords);
-
-        L.geoJSON(geojsonData, {
-          pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, { icon: customIcon });
-          },
-          onEachFeature: onEachFeature
-        }).addTo(map);
-      });
-    });
 }
-
-// Usage data
-fetchAndSetMap(window.mapViewData.dataUrl, map);

@@ -15,9 +15,9 @@ $client->setAuthConfig($path);
 
 // Configure the Sheets Service
 $service = new \Google_Service_Sheets($client);
-$spreadsheetId = $_ENV['SPREADSHEET_ID'];
+$spreadsheetId = $_POST['spreadsheetId'];
 $spreadsheet = $service->spreadsheets->get($spreadsheetId);
-define('SHEETNAME', $_ENV['SHEETNAME']);
+define('SHEETNAME', $_POST['sheetName']);
 
 // Get column
 $range = SHEETNAME.'!A2:F100';

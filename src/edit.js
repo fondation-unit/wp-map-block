@@ -11,7 +11,8 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { PanelBody, TextControl } from '@wordpress/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -29,10 +30,43 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit({ attributes, setAttributes }) {
+	const { spreadsheetId, sheetName } = attributes;
+
+	const setSpreadsheetId = (value) => {
+		setAttributes({ spreadsheetId: value });
+	}
+
+	const setSheetName = (value) => {
+		setAttributes({ sheetName: value });
+	}
+
 	return (
-		<p { ...useBlockProps() }>
-			{ __( 'Map – hello from the editor!', 'map' ) }
-		</p>
+		<>
+			<InspectorControls>
+				<PanelBody title={__('Settings', 'map')}>
+					<TextControl
+						label={__(
+							'Spreadsheet ID',
+							'map'
+						)}
+						value={spreadsheetId || ''}
+						onChange={(value) => setSpreadsheetId(value)}
+					/>
+					<TextControl
+						label={__(
+							'Sheet name',
+							'map'
+						)}
+						value={sheetName || ''}
+						onChange={(value) => setSheetName(value)}
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<div {...useBlockProps()}>
+
+				{__('Map block', 'map')}
+			</div>
+		</>
 	);
 }
