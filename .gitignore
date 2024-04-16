@@ -32,3 +32,5 @@ node_modules/
 credentials.json
 
 vendor
+
+.DS_Store
