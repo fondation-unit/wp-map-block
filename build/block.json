@@ -6,7 +6,7 @@
   "title": "Map",
   "category": "widgets",
   "icon": "location",
-  "description": "Example block scaffolded with Create Block tool.",
+  "description": "OpenstreetMap integration with external GeoJSON data.",
   "example": {},
   "attributes": {
     "spreadsheetId": {

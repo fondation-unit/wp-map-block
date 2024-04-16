@@ -24,22 +24,25 @@ if ( !empty($spreadsheetId) && !empty($sheetName) ) :
 	$spreadsheet = $service->spreadsheets->get($spreadsheetId);
 
 	// Get column
-	$range = $sheetName.'!A2:D100';
+	$range = $sheetName.'!A2:G100';
 	$response = $service->spreadsheets_values->get($spreadsheetId, $range);
 	$values = $response->getValues();
-
 	$coords_array = [];
+
 	foreach($values as $row) {
 		array_push($coords_array, array(
 			"name" => trim($row[0]),
 			"type" => trim($row[1]),
 			"latitude" => trim($row[2]),
 			"longitude" => trim($row[3]),
+			"website" => trim($row[4]),
+			"color" => trim($row[5]),
+			"marker" => trim($row[6]),
 		));
 	}
 
 	$data_to_pass = array(
-		'iconUrl' => plugin_dir_url(__FILE__) . '../src/images/map/marker.png',
+		'iconUrl' => plugin_dir_url(__FILE__) . '../src/images/map/',
 		'geojsonData' => $coords_array,
 	);
 
@@ -53,14 +56,32 @@ endif; ?>
 	<div class="create-block-map-entries">
 		<?php
 		// Output the text data
-		$type = null;
 
-		foreach($coords_array as $entry) :
-			if ($entry['type'] != $type) {
-				$type = $entry['type'];
-				echo '<h4 class="entry-title">' . $type . '</h4>';
+		$groupedData = [];
+		foreach ($coords_array as $item) {
+			$type = $item["type"];
+			// Check if the type key already exists in the grouped data array
+			if ( !isset($groupedData[$type]) ) {
+				// If not, initialize an empty array for that type
+				$groupedData[$type] = [];
 			}
-			echo '<li class="entry-name">' . $entry['name'] . '</li>';
+
+			$groupedData[$type][] = $item;
+		}
+
+		foreach($groupedData as $key => $val) :
+			echo '<h4 class="entry-title" style="color:' . sanitize_text_field($val[0]['color']) . ';">' . $key . '</h4>';
+			echo '<ul>';
+
+			foreach($val as $entry) {
+				if ( !empty($entry['website']) ) {
+					echo '<li class="entry-name"><a href="' . $entry['website'] . '" alt="Site ' . $entry['name'] . '" target="_blank">' . $entry['name'] . '</a></li>';
+				} else {
+					echo '<li class="entry-name">' . $entry['name'] . '</li>';
+				}
+			}
+
+			echo '</ul>';
 		endforeach; ?>
 	</div>
 </div>

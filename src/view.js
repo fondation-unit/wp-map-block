@@ -29,7 +29,6 @@ const map = L.map('map-div', {
   scrollWheelZoom: false,
 }).setView([46.642, 2.758], 6);
 
-
 const mapStyle = {
   fillColor: '#8ea18c',
   fillOpacity: 1,
@@ -39,12 +38,14 @@ const mapStyle = {
 
 L.geoJSON(france, { style: mapStyle }).addTo(map);
 
-const customIcon = L.icon({
-  iconUrl: window.mapViewData.iconUrl,
-  iconSize: [20, 20],
-  iconAnchor: [10, 10],
-  popupAnchor: [0, -12]
-});
+function gCustomIcon(marker) {
+  return L.icon({
+    iconUrl: window.mapViewData.iconUrl + 'marker-' + marker + '.png',
+    iconSize: [20, 20],
+    iconAnchor: [10, 10],
+    popupAnchor: [0, -12]
+  });
+}
 
 function onEachFeature(feature, layer) {
   if (feature.properties && feature.properties.popupContent) {
@@ -72,13 +73,14 @@ function setGeojsonData(name, popupContent, latitude, longitude) {
 }
 
 const geojsonData = window.mapViewData.geojsonData;
+
 if (geojsonData) {
   geojsonData.map(data => {
     const geoData = setGeojsonData(data.name, data.name, data.latitude, data.longitude);
 
     L.geoJSON(geoData, {
       pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, { icon: customIcon });
+        return L.marker(latlng, { icon: gCustomIcon(data.marker > 0 ? data.marker : 1) });
       },
       onEachFeature: onEachFeature
     }).addTo(map);

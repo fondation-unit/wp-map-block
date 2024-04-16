@@ -18,6 +18,11 @@
 		height: 600px;
 		min-height: 200px;
 		background-color: transparent;
+
+		&:focus,
+		&:focus-visible {
+			outline: none;
+		}
 	}
 
 	.create-block-map-entries {
@@ -30,9 +35,20 @@
 			margin-bottom: 0.75em;
 		}
 
-		.entry-name {
-			font-size: 0.75em;
-			list-style-type: none;
+		ul {
+			padding-left: 0;
+			margin-left: 0;
+			margin-bottom: 0;
+
+			.entry-name {
+				font-size: 0.75em;
+				list-style-type: none;
+
+				a {
+					text-decoration: none;
+					color: inherit;
+				}
+			}
 		}
 	}
 }
