@@ -14660,8 +14660,10 @@ function onEachFeature(feature, layer) {
     layer.bindPopup(feature.properties.popupContent);
   }
 }
-function setGeojsonData(name, popupContent, coords) {
-  const coordinates = coords.map(coord => parseFloat(coord.trim()));
+function setGeojsonData(name, popupContent, latitude, longitude) {
+  // Parse latitude and longitude to floats
+  const lat = parseFloat(latitude.trim());
+  const lng = parseFloat(longitude.trim());
   return {
     "type": "Feature",
     "properties": {
@@ -14671,14 +14673,14 @@ function setGeojsonData(name, popupContent, coords) {
     },
     "geometry": {
       "type": "Point",
-      "coordinates": coordinates
+      "coordinates": [lng, lat] // GeoJSON coordinates uses [longitude, latitude] format
     }
   };
 }
 const geojsonData = window.mapViewData.geojsonData;
 if (geojsonData) {
   geojsonData.map(data => {
-    const geoData = setGeojsonData(data.name, data.name, data.coords);
+    const geoData = setGeojsonData(data.name, data.name, data.latitude, data.longitude);
     leaflet__WEBPACK_IMPORTED_MODULE_0___default().geoJSON(geoData, {
       pointToLayer: function (feature, latlng) {
         return leaflet__WEBPACK_IMPORTED_MODULE_0___default().marker(latlng, {

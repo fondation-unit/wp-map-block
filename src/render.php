@@ -24,20 +24,18 @@ if ( !empty($spreadsheetId) && !empty($sheetName) ) :
 	$spreadsheet = $service->spreadsheets->get($spreadsheetId);
 
 	// Get column
-	$range = $sheetName.'!A2:C100';
+	$range = $sheetName.'!A2:D100';
 	$response = $service->spreadsheets_values->get($spreadsheetId, $range);
 	$values = $response->getValues();
 
 	$coords_array = [];
 	foreach($values as $row) {
-		$coords = trim($row[2]);
-		if ($coords) {
-			array_push($coords_array, array(
-				"name" => $row[0],
-				"type" => $row[1],
-				"coords" => array_reverse(explode(",", $coords)),
-			));
-		}
+		array_push($coords_array, array(
+			"name" => trim($row[0]),
+			"type" => trim($row[1]),
+			"latitude" => trim($row[2]),
+			"longitude" => trim($row[3]),
+		));
 	}
 
 	$data_to_pass = array(
