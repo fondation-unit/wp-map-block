@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "title": "Map",
   "category": "widgets",
-  "icon": "smiley",
+  "icon": "site",
   "description": "Example block scaffolded with Create Block tool.",
   "example": {},
   "attributes": {
