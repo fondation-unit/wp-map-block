@@ -24,7 +24,7 @@ if ( !empty($spreadsheetId) && !empty($sheetName) ) :
 	$spreadsheet = $service->spreadsheets->get($spreadsheetId);
 
 	// Get column
-	$range = $sheetName.'!A2:G100';
+	$range = $sheetName.'!A2:H100';
 	$response = $service->spreadsheets_values->get($spreadsheetId, $range);
 	$values = $response->getValues();
 	$coords_array = [];
@@ -38,6 +38,7 @@ if ( !empty($spreadsheetId) && !empty($sheetName) ) :
 			"website" => trim($row[4]),
 			"color" => trim($row[5]),
 			"marker" => trim($row[6]),
+			"titleColor" => trim($row[7]),
 		));
 	}
 
@@ -70,7 +71,11 @@ endif; ?>
 		}
 
 		foreach($groupedData as $key => $val) :
-			echo '<h4 class="entry-title" style="color:' . sanitize_text_field($val[0]['color']) . ';">' . $key . '</h4>';
+			if ( isset($val[0]['titleColor']) ) {
+				echo '<h4 class="entry-title" style="background:' . sanitize_text_field($val[0]['color']) . ';color:' . sanitize_text_field($val[0]['titleColor']) . ';">' . $key . '</h4>';
+			} else {
+				echo '<h4 class="entry-title" style="background:' . sanitize_text_field($val[0]['color']) . ';">' . $key . '</h4>';
+			}
 			echo '<ul>';
 
 			foreach($val as $entry) {
