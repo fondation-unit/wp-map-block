@@ -36,9 +36,9 @@ if ( !empty($spreadsheetId) && !empty($sheetName) ) :
 			"latitude" => trim($row[2]),
 			"longitude" => trim($row[3]),
 			"website" => trim($row[4]),
-			"color" => trim($row[5]),
-			"marker" => trim($row[6]),
-			"titleColor" => trim($row[7]),
+			"color" => isset($row[5]) ? trim($row[5]) : '#ffffff',
+			"marker" => isset($row[6]) ? trim($row[6]) : 1,
+			"titleColor" => isset($row[7]) ? trim($row[7]) : null,
 		));
 	}
 
