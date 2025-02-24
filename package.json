@@ -6,16 +6,21 @@
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {
-		"build": "wp-scripts build --webpack-copy-php",
+		"build": "wp-scripts build --experimental-modules --webpack-copy-php",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
-		"start": "wp-scripts start --webpack-copy-php"
+		"start": "wp-scripts start --experimental-modules --webpack-copy-php"
 	},
+	"files": [
+		"[^.]*"
+	],
 	"devDependencies": {
-		"@wordpress/scripts": "^27.6.0"
+		"@types/leaflet": "^1.9.16",
+		"@wordpress/interactivity": "^6.18.0",
+		"@wordpress/scripts": "^30.11.0"
 	},
 	"dependencies": {
 		"leaflet": "^1.9.4"

@@ -20,9 +20,11 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
 
-import L from 'leaflet';
+import * as L from 'leaflet';
 import france from './france.json';
 
+
+const franceData: any = france;
 
 const map = L.map('map-div', {
   attributionControl: false,
@@ -36,9 +38,14 @@ const mapStyle = {
   weight: 1
 }
 
-L.geoJSON(france, { style: mapStyle }).addTo(map);
+L.geoJSON(franceData, { style: mapStyle }).addTo(map);
 
-function gCustomIcon(marker) {
+function gCustomIcon(marker: number) {
+  if (!window.mapViewData) {
+    console.error("window.mapViewData undefined.");
+    return;
+  }
+
   return L.icon({
     iconUrl: window.mapViewData.iconUrl + 'marker-' + marker + '.png',
     iconSize: [20, 20],
@@ -47,13 +54,13 @@ function gCustomIcon(marker) {
   });
 }
 
-function onEachFeature(feature, layer) {
+function onEachFeature(feature: GeoJSON.Feature, layer: any) {
   if (feature.properties && feature.properties.popupContent) {
     layer.bindPopup(feature.properties.popupContent);
   }
 }
 
-function setGeojsonData(name, popupContent, latitude, longitude) {
+function setGeojsonData(name: any, popupContent: any, latitude: any, longitude: any) {
   // Parse latitude and longitude to floats
   const lat = parseFloat(latitude.trim());
   const lng = parseFloat(longitude.trim());
@@ -74,15 +81,25 @@ function setGeojsonData(name, popupContent, latitude, longitude) {
 
 const geojsonData = window.mapViewData.geojsonData;
 
-if (geojsonData) {
-  geojsonData.map(data => {
-    const geoData = setGeojsonData(data.name, data.name, data.latitude, data.longitude);
+if (geojsonData && Array.isArray(geojsonData)) {
+  geojsonData.forEach((data) => {
+    // Convert the object to GeoJSON Feature format
+    const geoData = setGeojsonData(
+      data.name, // Popup name
+      data.name, // Popup content
+      data.latitude,
+      data.longitude
+    ) as any;
 
+    // Add GeoJSON data to the map
     L.geoJSON(geoData, {
-      pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, { icon: gCustomIcon(data.marker > 0 ? data.marker : 1) });
+      pointToLayer: function (feature: GeoJSON.Feature, latlng: L.LatLng) {
+        // Use custom icon based on the marker value
+        return L.marker(latlng, {
+          icon: gCustomIcon(data.marker > 0 ? parseInt(data.marker) : 1)
+        });
       },
       onEachFeature: onEachFeature
     }).addTo(map);
-  })
+  });
 }
