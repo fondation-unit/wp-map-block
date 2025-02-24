@@ -18,7 +18,8 @@
         "noEmit": false,
         "declaration": false,
         "esModuleInterop": true,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "jsx": "react-jsx"
     },
     "exclude": [
         "dist"

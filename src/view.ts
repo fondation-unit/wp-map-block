@@ -24,22 +24,6 @@ import * as L from 'leaflet';
 import france from './france.json';
 
 
-const franceData: any = france;
-
-const map = L.map('map-div', {
-  attributionControl: false,
-  scrollWheelZoom: false,
-}).setView([46.642, 2.758], 6);
-
-const mapStyle = {
-  fillColor: '#8ea18c',
-  fillOpacity: 1,
-  color: '#ccdbc8',
-  weight: 1
-}
-
-L.geoJSON(franceData, { style: mapStyle }).addTo(map);
-
 function gCustomIcon(marker: number) {
   if (!window.mapViewData) {
     console.error("window.mapViewData undefined.");
@@ -66,20 +50,38 @@ function setGeojsonData(name: any, popupContent: any, latitude: any, longitude: 
   const lng = parseFloat(longitude.trim());
 
   return {
-    "type": "Feature",
-    "properties": {
-      "name": name,
-      "amenity": name,
-      "popupContent": popupContent
+    type: "Feature",
+    properties: {
+      name: name,
+      amenity: name,
+      popupContent: popupContent,
+      marker: 1 // Add a default marker in case of.
     },
-    "geometry": {
-      "type": "Point",
-      "coordinates": [lng, lat] // GeoJSON coordinates uses [longitude, latitude] format
+    geometry: {
+      type: "Point",
+      coordinates: [lng, lat]
     }
   };
 }
 
+// Initialize.
+const franceData: any = france;
+
+const map = L.map('map-div', {
+  attributionControl: false,
+  scrollWheelZoom: false,
+}).setView([46.642, 2.758], 6);
+
+const mapStyle = {
+  fillColor: '#8ea18c',
+  fillOpacity: 1,
+  color: '#ccdbc8',
+  weight: 1
+}
+
 const geojsonData = window.mapViewData.geojsonData;
+
+L.geoJSON(franceData, { style: mapStyle }).addTo(map);
 
 if (geojsonData && Array.isArray(geojsonData)) {
   geojsonData.forEach((data) => {
