@@ -6,7 +6,7 @@
   "title": "Map",
   "category": "widgets",
   "icon": "location",
-  "description": "OpenstreetMap integration with external GeoJSON data.",
+  "description": "Leaflet GeoJSON map based on data from a Google spreadsheet.",
   "example": {},
   "attributes": {
     "spreadsheetId": {
@@ -17,12 +17,13 @@
     }
   },
   "supports": {
-    "html": false
+    "html": false,
+    "interactivity": true
   },
   "textdomain": "map",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",
   "render": "file:./render.php",
-  "viewScript": "file:./view.js"
+  "viewScriptModule": "file:./view.js"
 }
