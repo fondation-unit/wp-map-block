@@ -45,7 +45,7 @@ function onEachFeature(feature: GeoJSON.Feature, layer: any) {
 }
 
 function setGeojsonData(name: any, popupContent: any, latitude: any, longitude: any) {
-  // Parse latitude and longitude to floats
+  // Parse latitude and longitude to floats.
   const lat = parseFloat(latitude.trim());
   const lng = parseFloat(longitude.trim());
 
@@ -85,7 +85,7 @@ L.geoJSON(franceData, { style: mapStyle }).addTo(map);
 
 if (geojsonData && Array.isArray(geojsonData)) {
   geojsonData.forEach((data) => {
-    // Convert the object to GeoJSON Feature format
+    // Convert the object to GeoJSON Feature format.
     const geoData = setGeojsonData(
       data.name, // Popup name
       data.name, // Popup content
@@ -93,10 +93,10 @@ if (geojsonData && Array.isArray(geojsonData)) {
       data.longitude
     ) as any;
 
-    // Add GeoJSON data to the map
+    // Add GeoJSON data to the map.
     L.geoJSON(geoData, {
       pointToLayer: function (feature: GeoJSON.Feature, latlng: L.LatLng) {
-        // Use custom icon based on the marker value
+        // Use custom icon based on the marker value.
         return L.marker(latlng, {
           icon: gCustomIcon(data.marker > 0 ? parseInt(data.marker) : 1)
         });

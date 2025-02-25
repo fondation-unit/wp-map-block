@@ -7,23 +7,24 @@
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$spreadsheetId = $attributes['spreadsheetId'];
-$sheetName = $attributes['sheetName'];
+
+$spreadsheetId = $attributes['spreadsheetId'] ?? '';
+$sheetName = $attributes['sheetName'] ?? '';
 
 if (!empty($spreadsheetId) && !empty($sheetName)) :
-	// Configure the Google Client
+	// Configure the Google Client.
 	$client = new \Google_Client();
 	$client->setApplicationName('Google Sheets API');
 	$client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
 	$client->setAccessType('offline');
-	$path = dirname(__DIR__) . '/credentials.json'; // Downloaded from Google Sheets API
+	$path = dirname(__DIR__) . '/credentials.json'; // Downloaded from Google Sheets API.
 	$client->setAuthConfig($path);
 
-	// Configure the Sheets Service
+	// Configure the Sheets Service.
 	$service = new \Google_Service_Sheets($client);
 	$spreadsheet = $service->spreadsheets->get($spreadsheetId);
 
-	// Get column
+	// Get the column.
 	$range = $sheetName . '!A2:H100';
 	$response = $service->spreadsheets_values->get($spreadsheetId, $range);
 	$values = $response->getValues();
@@ -47,45 +48,47 @@ if (!empty($spreadsheetId) && !empty($sheetName)) :
 		'geojsonData' => $coords_array,
 	);
 
-	// Output the data into the view.js file
+	// Output the data into the view.js file.
 	echo "<script>window.mapViewData = " . json_encode($data_to_pass) . ";</script>";
-endif; ?>
+?>
 
-<div class="create-block-map-wrapper">
-	<div id="map-div" class="create-block-map"></div>
+	<div class="create-block-map-wrapper">
+		<div id="map-div" class="create-block-map"></div>
 
-	<div class="create-block-map-entries">
-		<?php
-		// Output the text data
-		$groupedData = [];
-		foreach ($coords_array as $item) {
-			$type = $item["type"];
-			// Check if the type key already exists in the grouped data array
-			if (!isset($groupedData[$type])) {
-				// If not, initialize an empty array for that type
-				$groupedData[$type] = [];
-			}
+		<div class="create-block-map-entries">
+			<?php
 
-			$groupedData[$type][] = $item;
-		}
-
-		foreach ($groupedData as $key => $val) :
-			if (isset($val[0]['titleColor'])) {
-				echo '<h4 class="entry-title" style="background:' . sanitize_text_field($val[0]['color']) . ';color:' . sanitize_text_field($val[0]['titleColor']) . ';">' . $key . '</h4>';
-			} else {
-				echo '<h4 class="entry-title" style="background:' . sanitize_text_field($val[0]['color']) . ';">' . $key . '</h4>';
-			}
-			echo '<ul>';
-
-			foreach ($val as $entry) {
-				if (!empty($entry['website'])) {
-					echo '<li class="entry-name"><a href="' . $entry['website'] . '" alt="Site ' . $entry['name'] . '" target="_blank">' . $entry['name'] . '</a></li>';
-				} else {
-					echo '<li class="entry-name">' . $entry['name'] . '</li>';
+			$groupedData = [];
+			foreach ($coords_array as $item) {
+				$type = $item["type"];
+				// Check if the type key already exists in the grouped data array.
+				if (!isset($groupedData[$type])) {
+					// If not, initialize an empty array for that type.
+					$groupedData[$type] = [];
 				}
+
+				$groupedData[$type][] = $item;
 			}
 
-			echo '</ul>';
-		endforeach; ?>
+			foreach ($groupedData as $key => $val) :
+				if (isset($val[0]['titleColor'])) {
+					echo '<h4 class="entry-title" style="background:' . sanitize_text_field($val[0]['color']) . ';color:' . sanitize_text_field($val[0]['titleColor']) . ';">' . $key . '</h4>';
+				} else {
+					echo '<h4 class="entry-title" style="background:' . sanitize_text_field($val[0]['color']) . ';">' . $key . '</h4>';
+				}
+				echo '<ul>';
+
+				foreach ($val as $entry) {
+					if (!empty($entry['website'])) {
+						echo '<li class="entry-name"><a href="' . $entry['website'] . '" alt="Site ' . $entry['name'] . '" target="_blank">' . $entry['name'] . '</a></li>';
+					} else {
+						echo '<li class="entry-name">' . $entry['name'] . '</li>';
+					}
+				}
+
+				echo '</ul>';
+			endforeach; ?>
+		</div>
 	</div>
-</div>
+
+<?php endif;

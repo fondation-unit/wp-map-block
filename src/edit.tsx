@@ -39,6 +39,7 @@ interface BlockAttributes {
  * @return {Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }: { attributes: BlockAttributes, setAttributes: (attributes: BlockAttributes) => void }) {
+  const blockProps = useBlockProps();
   const { spreadsheetId, sheetName } = attributes;
 
   const setSpreadsheetId = (value: string) => {
@@ -65,8 +66,9 @@ export default function Edit({ attributes, setAttributes }: { attributes: BlockA
           />
         </PanelBody>
       </InspectorControls>
-      <div {...useBlockProps()}>
-        {__('Map block', 'map')}
+
+      <div {...blockProps} className={`${blockProps.className} map-block-wrapper`}>
+        <h4>{__('Map block', 'map')}</h4>
       </div>
     </>
   );
