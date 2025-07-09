@@ -1,0 +1,203 @@
+[
+    {
+        "key": "group_686e700b749f7",
+        "title": "Centre de formation",
+        "fields": [
+            {
+                "key": "field_686e700b65e5e",
+                "label": "adresse",
+                "name": "adresse",
+                "aria-label": "",
+                "type": "textarea",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "allow_in_bindings": 0,
+                "rows": "",
+                "placeholder": "",
+                "new_lines": ""
+            },
+            {
+                "key": "field_686e703465e61",
+                "label": "Latitude",
+                "name": "latitude",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_686e703d65e62",
+                "label": "Longitude",
+                "name": "longitude",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_686e757e65e63",
+                "label": "Photo",
+                "name": "photo",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "array",
+                "library": "all",
+                "min_width": "",
+                "min_height": "",
+                "min_size": "",
+                "max_width": "",
+                "max_height": "",
+                "max_size": "",
+                "mime_types": "",
+                "allow_in_bindings": 0,
+                "preview_size": "medium"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "centre-formation"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0
+    },
+    {
+        "key": "post_type_686e6fc3b9666",
+        "title": "Centres de formation",
+        "menu_order": 0,
+        "active": true,
+        "post_type": "centre-formation",
+        "advanced_configuration": false,
+        "import_source": "",
+        "import_date": "",
+        "labels": {
+            "name": "Centres de formation",
+            "singular_name": "Centre de formation",
+            "menu_name": "Centres de formation",
+            "all_items": "Tous les Centres de formation",
+            "edit_item": "Modifier Centre de formation",
+            "view_item": "Voir Centre de formation",
+            "view_items": "Voir Centres de formation",
+            "add_new_item": "Ajouter Centre de formation",
+            "add_new": "Ajouter Centre de formation",
+            "new_item": "Nouveau Centre de formation",
+            "parent_item_colon": "Centre de formation parent :",
+            "search_items": "Rechercher Centres de formation",
+            "not_found": "Aucun centres de formation trouvé",
+            "not_found_in_trash": "Aucun centres de formation trouvé dans la corbeille",
+            "archives": "Archives des Centre de formation",
+            "attributes": "Attributs des Centre de formation",
+            "featured_image": "",
+            "set_featured_image": "",
+            "remove_featured_image": "",
+            "use_featured_image": "",
+            "insert_into_item": "Insérer dans centre de formation",
+            "uploaded_to_this_item": "Téléversé sur ce centre de formation",
+            "filter_items_list": "Filtrer la liste centres de formation",
+            "filter_by_date": "Filtrer centres de formation par date",
+            "items_list_navigation": "Navigation dans la liste Centres de formation",
+            "items_list": "Liste Centres de formation",
+            "item_published": "Centre de formation publié.",
+            "item_published_privately": "Centre de formation publié en privé.",
+            "item_reverted_to_draft": "Centre de formation repassé en brouillon.",
+            "item_scheduled": "Centre de formation planifié.",
+            "item_updated": "Centre de formation mis à jour.",
+            "item_link": "Lien Centre de formation",
+            "item_link_description": "Un lien vers un centre de formation."
+        },
+        "description": "",
+        "public": true,
+        "hierarchical": false,
+        "exclude_from_search": false,
+        "publicly_queryable": true,
+        "show_ui": true,
+        "show_in_menu": true,
+        "admin_menu_parent": "",
+        "show_in_admin_bar": true,
+        "show_in_nav_menus": true,
+        "show_in_rest": true,
+        "rest_base": "",
+        "rest_namespace": "wp\/v2",
+        "rest_controller_class": "WP_REST_Posts_Controller",
+        "menu_position": "",
+        "menu_icon": {
+            "type": "dashicons",
+            "value": "dashicons-admin-post"
+        },
+        "rename_capabilities": false,
+        "singular_capability_name": "post",
+        "plural_capability_name": "posts",
+        "supports": [
+            "title",
+            "editor",
+            "thumbnail",
+            "custom-fields"
+        ],
+        "taxonomies": "",
+        "has_archive": false,
+        "has_archive_slug": "",
+        "rewrite": {
+            "permalink_rewrite": "post_type_key",
+            "with_front": "1",
+            "feeds": "0",
+            "pages": "1"
+        },
+        "query_var": "post_type_key",
+        "query_var_name": "",
+        "can_export": true,
+        "delete_with_user": false,
+        "register_meta_box_cb": "",
+        "enter_title_here": ""
+    }
+]
