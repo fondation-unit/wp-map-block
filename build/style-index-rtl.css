@@ -27,6 +27,9 @@
 .create-block-map-wrapper .create-block-map-entries {
   width: 30%;
 }
+.create-block-map-wrapper .create-block-map-entries h3 {
+  font-size: 1.688rem;
+}
 .create-block-map-wrapper .create-block-map-entries .entry-title {
   font-size: 1rem;
   font-weight: bold;
