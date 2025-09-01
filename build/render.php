@@ -8,6 +8,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $centres = new WP_Query([
 	'post_type' => 'centre-formation',
+	'posts_per_page' => -1
 ]);
 
 if ($centres->have_posts()) :
