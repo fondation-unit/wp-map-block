@@ -43,7 +43,7 @@ function onEachFeature(feature: GeoJSON.Feature, layer: any) {
 	}
 }
 
-function setGeojsonData(name: any, popupContent: any, latitude: any, longitude: any) {
+function setGeojsonData(name: any, popupContent: any, latitude: any, longitude: any, id: any, typeCentre: any) {
 	// Parse latitude and longitude to floats.
 	const lat = parseFloat(latitude.trim());
 	const lng = parseFloat(longitude.trim());
@@ -53,8 +53,10 @@ function setGeojsonData(name: any, popupContent: any, latitude: any, longitude: 
 		properties: {
 			name: name,
 			amenity: name,
+			typeCentre: typeCentre,
 			popupContent: popupContent,
-			marker: 1 // Add a default marker in case of.
+			marker: 1, // Add a default marker in case of.
+			id: id
 		},
 		geometry: {
 			type: 'Point',
@@ -72,7 +74,7 @@ const map = L.map('map-div', {
 }).setView([46.642, 2.758], 6);
 
 const mapStyle = {
-	fillColor: '#00282A90',
+	fillColor: '#00282a90',
 	fillOpacity: 1,
 	color: '#ccdbc8',
 	weight: 1
@@ -85,6 +87,7 @@ L.geoJSON(franceData, {style: mapStyle}).addTo(map);
 if (geojsonData && Array.isArray(geojsonData)) {
 	geojsonData.forEach((data) => {
 		let desc = '<img src="' + data.image + '" style="width:100%;height:100%;"><br><b>' + data.name + '</b><br>'
+			+ data.typeCentre+'<br>'
 			+ data.adresse;
 
 		// Convert the object to GeoJSON Feature format.
@@ -92,7 +95,9 @@ if (geojsonData && Array.isArray(geojsonData)) {
 			data.name, // Popup name
 			desc, // Popup content
 			data.latitude,
-			data.longitude
+			data.longitude,
+			data.id,
+			data.typeCentre
 		) as any;
 
 		// Add GeoJSON data to the map.
@@ -100,10 +105,33 @@ if (geojsonData && Array.isArray(geojsonData)) {
 			pointToLayer: function (feature: GeoJSON.Feature, latlng: L.LatLng) {
 				// Use custom icon based on the marker value.
 				return L.marker(latlng, {
-					icon: gCustomIcon(data.marker > 0 ? parseInt(data.marker) : 1)
+					icon: gCustomIcon(data.marker > 0 ? parseInt(data.marker) : 1),
+					id: data.id
 				});
 			},
 			onEachFeature: onEachFeature
 		}).addTo(map);
 	});
+
 }
+
+var classname = document.getElementsByClassName('map-link');
+
+var openMarkerPopup = function (e) {
+	e.preventDefault();
+	var id = this.getAttribute('data-id');
+
+	map.eachLayer(function (layer) {
+		if (layer.options.id && layer.options.id == id) {
+			layer.openPopup();
+		}
+	});
+};
+
+for (var i = 0; i < classname.length; i ++) {
+	classname[i].addEventListener('click', openMarkerPopup, false);
+}
+
+
+
+

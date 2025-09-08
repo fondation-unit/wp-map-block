@@ -8,18 +8,19 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $centres = new WP_Query([
 	'post_type' => 'centre-formation',
-	'posts_per_page' => -1
+	'posts_per_page' => -1,
 ]);
 
 if ($centres->have_posts()) :
 	// Configure the Google Client.
-
+	$i=1;
 	while ($centres->have_posts()):
 		$centres->the_post();
 		$latitude = get_field('latitude');
 		$longitude = get_field('longitude');
 		$adresse = get_field('adresse');
 		$photo = get_field('photo');
+		$typeCentre = get_field('type_de_centre');
 		$name = get_the_title();
 
 		$image = $photo ? $photo['sizes']['thumbnail'] : '';
@@ -31,10 +32,13 @@ if ($centres->have_posts()) :
 			"adresse" => nl2br($adresse),
 			"latitude" => $latitude,
 			"longitude" => $longitude,
-			"marker" => 2,
+			"marker" => $typeCentre === 'Centre de formation constructeurs' ? 1 : 2,
 			"description" => $desc,
+			"typeCentre" => $typeCentre,
 			"image" => $image,
+			"id" => $i,
 		];
+		$i++;
 	endwhile;
 
 	$data_to_pass = [
@@ -54,12 +58,11 @@ if ($centres->have_posts()) :
 			<ul>
 				<?php
 				foreach ($coords_array as $val) :
-					echo '<li class="entry-name">' . $val['name'] . '</li>';
+					echo '<li class="entry-name"><a class="map-link" href="#" data-id="'.$val['id'].'">' . $val['name'] . '</a></li>';
 				endforeach;
 				?>
 			</ul>
 		</div>
 	</div>
-
 <?php
 endif;
