@@ -25,7 +25,7 @@ if ($centres->have_posts()) :
 
 		$image = $photo ? $photo['sizes']['thumbnail'] : '';
 
-		$desc = $image . '<b>' . $name . '</b><br>' . $adresse;
+		$desc = $image . '<b>' . $name . '</b><br>'.$typeCentre.'<br><br>' . $adresse;
 
 		$coords_array[] = [
 			"name" => $name,

@@ -86,7 +86,7 @@ L.geoJSON(franceData, {style: mapStyle}).addTo(map);
 
 if (geojsonData && Array.isArray(geojsonData)) {
 	geojsonData.forEach((data) => {
-		let desc = '<img src="' + data.image + '" style="width:100%;height:100%;"><br><b>' + data.name + '</b><br>'
+		let desc = '<img src="' + data.image + '" style="width:100%;height:100%;"><br><b>' + data.name + '</b><br><br>'
 			+ data.typeCentre+'<br>'
 			+ data.adresse;
 
