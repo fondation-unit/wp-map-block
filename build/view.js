@@ -14650,7 +14650,7 @@ function onEachFeature(feature, layer) {
     layer.bindPopup(feature.properties.popupContent);
   }
 }
-function setGeojsonData(name, popupContent, latitude, longitude, id, typeCentre) {
+function setGeojsonData(name, popupContent, latitude, longitude, id, typeCentre, catalog, centreFormation) {
   // Parse latitude and longitude to floats.
   const lat = parseFloat(latitude.trim());
   const lng = parseFloat(longitude.trim());
@@ -14663,7 +14663,9 @@ function setGeojsonData(name, popupContent, latitude, longitude, id, typeCentre)
       popupContent: popupContent,
       marker: 1,
       // Add a default marker in case of.
-      id: id
+      id: id,
+      catalog: catalog,
+      centreFormation: centreFormation
     },
     geometry: {
       type: 'Point',
@@ -14690,14 +14692,14 @@ leaflet__WEBPACK_IMPORTED_MODULE_0__.geoJSON(franceData, {
 }).addTo(map);
 if (geojsonData && Array.isArray(geojsonData)) {
   geojsonData.forEach(data => {
-    let desc = '<img src="' + data.image + '" style="width:100%;height:100%;"><br><b>' + data.name + '</b><br>' + data.typeCentre + '<br>' + data.adresse;
+    let desc = '<img src="' + data.image + '" style="width:100%;height:100%;"><br><b>' + data.name + '</b><br><br>' + data.typeCentre + '<br>' + data.adresse + '<br>' + '<a href="' + data.catalog + '?centre_de_formation=' + data.centreFormation + '">Formations dans ce centre</a>';
 
     // Convert the object to GeoJSON Feature format.
     const geoData = setGeojsonData(data.name,
     // Popup name
     desc,
     // Popup content
-    data.latitude, data.longitude, data.id, data.typeCentre);
+    data.latitude, data.longitude, data.id, data.typeCentre, data.catalog, data.centreFormation);
 
     // Add GeoJSON data to the map.
     leaflet__WEBPACK_IMPORTED_MODULE_0__.geoJSON(geoData, {

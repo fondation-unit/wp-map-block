@@ -43,11 +43,19 @@ function onEachFeature(feature: GeoJSON.Feature, layer: any) {
 	}
 }
 
-function setGeojsonData(name: any, popupContent: any, latitude: any, longitude: any, id: any, typeCentre: any) {
+function setGeojsonData(
+	name: any,
+	popupContent: any,
+	latitude: any,
+	longitude: any,
+	id: any,
+	typeCentre: any,
+	catalog: any,
+	centreFormation: any,
+) {
 	// Parse latitude and longitude to floats.
 	const lat = parseFloat(latitude.trim());
 	const lng = parseFloat(longitude.trim());
-
 	return {
 		type: 'Feature',
 		properties: {
@@ -56,7 +64,9 @@ function setGeojsonData(name: any, popupContent: any, latitude: any, longitude: 
 			typeCentre: typeCentre,
 			popupContent: popupContent,
 			marker: 1, // Add a default marker in case of.
-			id: id
+			id: id,
+			catalog: catalog,
+			centreFormation: centreFormation,
 		},
 		geometry: {
 			type: 'Point',
@@ -87,8 +97,10 @@ L.geoJSON(franceData, {style: mapStyle}).addTo(map);
 if (geojsonData && Array.isArray(geojsonData)) {
 	geojsonData.forEach((data) => {
 		let desc = '<img src="' + data.image + '" style="width:100%;height:100%;"><br><b>' + data.name + '</b><br><br>'
-			+ data.typeCentre+'<br>'
-			+ data.adresse;
+			+ data.typeCentre + '<br>'
+			+ data.adresse + '<br>'
+			+ '<a href="' + data.catalog + '?centre_de_formation=' + data.centreFormation
+			+ '">Formations dans ce centre</a>';
 
 		// Convert the object to GeoJSON Feature format.
 		const geoData = setGeojsonData(
@@ -97,7 +109,9 @@ if (geojsonData && Array.isArray(geojsonData)) {
 			data.latitude,
 			data.longitude,
 			data.id,
-			data.typeCentre
+			data.typeCentre,
+			data.catalog,
+			data.centreFormation,
 		) as any;
 
 		// Add GeoJSON data to the map.
