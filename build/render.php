@@ -75,7 +75,7 @@ if (count($centres) > 0) :
 		<div id="map-div" class="create-block-map"></div>
 
 		<div class="create-block-map-entries">
-			<h3>Nos centres de formation</h3>
+			<h3 class="mb-4">Nos centres de formation</h3>
 			<div class="d-flex flex-md-row flex-column">
 				<div class="col-md-6 pe-md-3">
 					<h4>Établissements scolaires partenaire</h4>
