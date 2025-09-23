@@ -16,7 +16,7 @@
   position: sticky;
   position: -webkit-sticky;
   top: 30px;
-  width: 70%;
+  width: 60%;
   height: 800px;
   min-height: 200px;
   background-color: transparent;
@@ -25,10 +25,15 @@
   outline: none;
 }
 .create-block-map-wrapper .create-block-map-entries {
-  width: 30%;
+  width: 40%;
 }
 .create-block-map-wrapper .create-block-map-entries h3 {
   font-size: 1.688rem;
+}
+.create-block-map-wrapper .create-block-map-entries h4 {
+  font-size: 1.3rem;
+  text-transform: none;
+  line-height: 1;
 }
 .create-block-map-wrapper .create-block-map-entries .entry-title {
   font-size: 1rem;

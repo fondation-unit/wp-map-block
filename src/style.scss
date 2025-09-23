@@ -14,7 +14,7 @@
 		position: sticky;
 		position: -webkit-sticky;
 		top: 30px;
-		width: 70%;
+		width: 60%;
 		height: 800px;
 		min-height: 200px;
 		background-color: transparent;
@@ -26,10 +26,16 @@
 	}
 
 	.create-block-map-entries {
-		width: 30%;
+		width: 40%;
 
 		h3{
 			font-size: 1.688rem;
+		}
+
+		h4{
+			font-size: 1.3rem;
+			text-transform: none;
+			line-height: 1;
 		}
 
 		.entry-title {
