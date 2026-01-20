@@ -16,12 +16,7 @@ $centresEtab = new WP_Query([
 			'value' => 'Etablissement scolaire partenaire',
 			'compare' => '=',
 		],
-		[
-			'key' => 'latitude',
-			'value' => '',
-			'compare' => '!='
-		]
-	]
+	],
 ]);
 $centresPros = new WP_Query([
 	'post_type' => 'centre-formation',
@@ -33,12 +28,7 @@ $centresPros = new WP_Query([
 			'value' => 'Centre de formation constructeurs',
 			'compare' => '=',
 		],
-		[
-			'key' => 'latitude',
-			'value' => '',
-			'compare' => '!='
-		]
-	]
+	],
 ]);
 
 $centres = [...$centresEtab->posts, ...$centresPros->posts];
@@ -56,22 +46,21 @@ if (count($centres) > 0) :
 		$image = $photo ? $photo['sizes']['thumbnail'] : '';
 
 		$desc = $image . '<b>' . $name . '</b><br>' . $typeCentre . '<br><br>' . $adresse;
-		if(!empty($latitude) || !empty($longitude)) {
-			$coords_array[] = [
-				"name" => $name,
-				"adresse" => nl2br($adresse),
-				"latitude" => $latitude,
-				"longitude" => $longitude,
-				"marker" => $typeCentre === 'Centre de formation constructeurs' ? 1 : 2,
-				"description" => $desc,
-				"typeCentre" => $typeCentre,
-				"centreFormation" => $centre->ID,
-				"image" => $image,
-				"id" => $i,
-				"catalog" => get_permalink(CATALOG_PAGE),
-			];
-			$i++;
-		}
+		$coords_array[] = [
+			"name" => $name,
+			"adresse" => nl2br($adresse),
+			"latitude" => $latitude,
+			"longitude" => $longitude,
+			"marker" => $typeCentre === 'Centre de formation constructeurs' ? 1 : 2,
+			"description" => $desc,
+			"typeCentre" => $typeCentre,
+			"centreFormation" => $centre->ID,
+			"image" => $image,
+			"id" => $i,
+			"catalog" => get_permalink(CATALOG_PAGE),
+		];
+		$i++;
+
 	endforeach;
 
 	$data_to_pass = [
@@ -79,17 +68,16 @@ if (count($centres) > 0) :
 		'geojsonData' => $coords_array,
 	];
 
-
 	// Output the data into the view.js file.
 	echo "<script>window.mapViewData = " . json_encode($data_to_pass) . ";</script>";
 	?>
 
 	<div class="create-block-map-wrapper">
-		<div id="map-div" class="create-block-map"></div>
+		<div id="map-div" class="create-block-map d-sm-none"></div>
 
-		<div class="create-block-map-entries">
+		<div class="create-block-map-entries d-sm-none">
 			<h3 class="mb-4">Nos centres de formation</h3>
-			<div class="d-flex flex-md-row flex-column">
+			<div class="d-flex flex-md-row flex-column ">
 				<div class="col-md-6 pe-md-3">
 					<a href="<?php echo get_permalink(CATALOG_PAGE); ?>?type_de_formation=base" class="btn btn-base">
 						Formations des établissements
@@ -97,17 +85,18 @@ if (count($centres) > 0) :
 					<h4>Établissements scolaires partenaires</h4>
 					<ul>
 						<?php
-							$j=1;
+						$j = 1;
 						foreach ($centresEtab->posts as $etab) :
 							echo '<li class="entry-name"><a class="map-link" href="#" data-id="' . $j . '">'
 								. $etab->post_title . '</a></li>';
-						$j++;
+							$j++;
 						endforeach;
 						?>
 					</ul>
 				</div>
 				<div class="col-md-6 ps-md-3">
-					<a href="<?php echo get_permalink(CATALOG_PAGE); ?>?type_de_formation=avance" class="btn btn-avance">
+					<a href="<?php echo get_permalink(CATALOG_PAGE); ?>?type_de_formation=avance"
+					   class="btn btn-avance">
 						Formations constructeurs
 					</a>
 					<h4>Centres de formations constructeurs</h4>
@@ -116,11 +105,15 @@ if (count($centres) > 0) :
 						foreach ($centresPros->posts as $val) :
 							echo '<li class="entry-name"><a class="map-link" href="#" data-id="' . $j . '">'
 								. $val->post_title . '</a></li>';
-						$j++;
+							$j++;
 						endforeach;
 						?>
 					</ul>
 				</div>
+			</div>
+
+			<div class="d-md-none">
+				test
 			</div>
 
 		</div>

@@ -28,11 +28,11 @@
 	.create-block-map-entries {
 		width: 40%;
 
-		h3{
+		h3 {
 			font-size: 1.688rem;
 		}
 
-		h4{
+		h4 {
 			font-size: 1.3rem;
 			text-transform: none;
 			line-height: 1;
@@ -80,4 +80,8 @@
 			width: 100%;
 		}
 	}
+}
+
+@media (max-width: 480px) {
+	
 }
