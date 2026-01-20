@@ -114,7 +114,7 @@ if (count($centres) > 0) :
 
 		</div>
 		<div class="d-md-none d-flex flex-column">
-			<h3 class="mb-4">Nos centres de formation</h3>
+			<h3 class="mb-4">Nos formations</h3>
 			<div class="text-center">
 				<a href="<?php echo get_permalink(CATALOG_PAGE); ?>?type_de_formation=base" class="btn btn-base">
 					Formations des établissements
