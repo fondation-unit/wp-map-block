@@ -73,9 +73,9 @@ if (count($centres) > 0) :
 	?>
 
 	<div class="create-block-map-wrapper">
-		<div id="map-div" class="create-block-map d-sm-none"></div>
+		<div id="map-div" class="create-block-map d-none d-md-block"></div>
 
-		<div class="create-block-map-entries d-sm-none">
+		<div class="create-block-map-entries d-none d-md-block">
 			<h3 class="mb-4">Nos centres de formation</h3>
 			<div class="d-flex flex-md-row flex-column ">
 				<div class="col-md-6 pe-md-3">
@@ -112,10 +112,19 @@ if (count($centres) > 0) :
 				</div>
 			</div>
 
-			<div class="d-md-none">
-				test
+		</div>
+		<div class="d-md-none d-flex flex-column">
+			<div class="text-center">
+				<a href="<?php echo get_permalink(CATALOG_PAGE); ?>?type_de_formation=base" class="btn btn-base">
+					Formations des établissements
+				</a>
 			</div>
-
+			<div class="text-center">
+				<a href="<?php echo get_permalink(CATALOG_PAGE); ?>?type_de_formation=avance"
+				   class="btn btn-avance">
+					Formations constructeurs
+				</a>
+			</div>
 		</div>
 	</div>
 <?php
